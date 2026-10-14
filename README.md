@@ -59,15 +59,13 @@ AdsBridgeSDK/
 
 In the project root `settings.gradle.kts`:
 
-```kotlin
-include(":ads-library", ":app")
-```
+
 
 In your host `app/build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation(project(":ads-library"))
+   implementation 'com.github.Ahsan-techzango:AdsBridgeSDK:1.0.2'
 }
 ```
 
