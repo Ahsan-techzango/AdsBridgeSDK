@@ -62,7 +62,13 @@ In the project root `settings.gradle.kts`:
 
 
 In your host `app/build.gradle.kts`:
-
+dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```kotlin
 dependencies {
    implementation 'com.github.Ahsan-techzango:AdsBridgeSDK:1.0.2'
@@ -73,57 +79,6 @@ dependencies {
 
 **First publish a successful release.** An AAR committed to GitHub is not automatically a Gradle dependency.
 
-GitHub Packages Maven URL for the assumed repository:
-
-```text
-https://maven.pkg.github.com/Ahsan-techzango/AdsBridgeSDK
-```
-
-In your consuming application's `settings.gradle.kts`:
-
-```kotlin
-import org.gradle.api.initialization.resolve.RepositoriesMode
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url = uri("https://maven.pkg.github.com/Ahsan-techzango/AdsBridgeSDK")
-            credentials {
-                username = providers.gradleProperty("gpr.user")
-                    .orElse(providers.environmentVariable("GITHUB_ACTOR"))
-                    .orNull
-                password = providers.gradleProperty("gpr.key")
-                    .orElse(providers.environmentVariable("GITHUB_TOKEN"))
-                    .orNull
-            }
-        }
-    }
-}
-```
-
-The current workflow builds the publication with `-PsdkGroup=io.github.${github.repository_owner}.ads`. With the chosen owner, the Maven coordinates are therefore:
-
-```kotlin
-dependencies {
-    implementation("io.github.Ahsan-techzango.ads:ads-library:1.0.0")
-}
-```
-
-**Note:** This group is derived from the existing workflow rather than an independently verified published coordinate. If you choose a normalized group ID, e.g. `io.github.ahsan.techzango.ads`, change it consistently in the workflow, `gradle.properties`, publishing build and consumer dependency **before the first release**. Maven coordinates are case-sensitive.
-
-**Credentials:** GitHub Packages Maven consumption commonly requires authentication, even for publicly visible packages. On each developer's machine put these in **`~/.gradle/gradle.properties`**, not the repository:
-
-```properties
-gpr.user=YOUR_GITHUB_USERNAME
-gpr.key=YOUR_GITHUB_PERSONAL_ACCESS_TOKEN
-```
-
-Grant the token `read:packages` and appropriate repository access. For CI supply secrets rather than committing a token. The publishing GitHub Actions job uses `GITHUB_TOKEN` and `packages: write`.
-
-> Want no authentication for colleagues using a public repository? JitPack is an alternative, but first configure and verify a compatible JitPack release and use its actual generated coordinates. Do **not** mix GitHub Packages coordinates with JitPack coordinates.
 
 ## 2. Add the AdMob App ID
 
