@@ -62,6 +62,7 @@ In the project root `settings.gradle.kts`:
 
 
 In your host `app/build.gradle.kts`:
+```kotlin
 dependencyResolutionManagement {
 		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 		repositories {
