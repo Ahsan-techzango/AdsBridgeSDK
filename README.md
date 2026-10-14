@@ -386,43 +386,9 @@ override fun onDestroy() {
 
 Clear per-placement cache with `AdsLibrary.clearPlacement("home")` or all cached SDK state with `AdsLibrary.clearAll()`. The SDK checks Activity validity before showing fullscreen ads, but your callbacks must still avoid touching destroyed views. Keep navigation and rewards idempotent.
 
-## 12. Publish to GitHub Packages
 
-1. Create the GitHub repository **`https://github.com/Ahsan-techzango/AdsBridgeSDK`** (or substitute your real repository name).
-2. Keep `ads-library` and `sample-app` as modules; publish **only** `ads-library`.
-3. In `ads-library/build.gradle.kts`, replace old `OWNER/ads-library` in POM metadata and the default package URL with `Ahsan-techzango/AdsBridgeSDK`. The `GITHUB_REPOSITORY` environment variable supplied by GitHub Actions also selects the publishing URL.
-4. Decide on a permanent Maven `group` before the first release. The existing GitHub Actions workflow uses `io.github.Ahsan-techzango.ads`, while the checked-in `gradle.properties` still has an example group; align both.
-5. Verify the module locally or in CI:
 
-```bash
-./gradlew :ads-library:clean :ads-library:assembleRelease
-./gradlew :sample-app:assembleDebug
-./gradlew :ads-library:publishReleasePublicationToMavenLocal
-```
-
-On Windows replace `./gradlew` with `gradlew.bat`. A local bootstrap launcher is not necessarily an official Gradle wrapper: generate and commit a **real** wrapper (`gradle wrapper --gradle-version 9.4.1`) and `gradle/wrapper/gradle-wrapper.jar` before relying on CI.
-
-6. Commit and push:
-
-```bash
-git init
-git add .
-git commit -m "Initial AdsBridge SDK"
-git branch -M main
-git remote add origin https://github.com/Ahsan-techzango/AdsBridgeSDK.git
-git push -u origin main
-```
-
-7. **After tests pass**, release `1.0.0`:
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-The included `.github/workflows/publish.yml` listens for `v*` tags and publishes the release Maven publication to GitHub Packages using `secrets.GITHUB_TOKEN`. Check the GitHub Actions logs for success and verify the published package exists in the repository's packages. Each new version needs a new tag (`v1.0.1`, `v1.1.0`, etc.).
-
-## 13. Troubleshooting
+## 12. Troubleshooting
 
 | Symptom | Check |
 |---|---|
