@@ -76,28 +76,10 @@ dependencies {
 }
 ```
 
-### Option B: Install from GitHub Packages (configured in this source)
-
-**First publish a successful release.** An AAR committed to GitHub is not automatically a Gradle dependency.
-
-
-## 2. Add the AdMob App ID
-
-In the **host application's** `AndroidManifest.xml`:
-
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application ...>
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy" />
-    </application>
-</manifest>
-```
 
 The library manifest supplies `INTERNET` and `ACCESS_NETWORK_STATE`; verify the merged manifest. Use an **App ID** (`~`) for initialization and **ad unit IDs** (`/`) when loading. Configure consent in the host before requesting ads where required. Use Google's test ad units during development; never use production ads for repeated testing.
 
-## 3. Initialize in your Application class
+## 2. Initialize in your Application class
 
 ```kotlin
 import android.app.Application
