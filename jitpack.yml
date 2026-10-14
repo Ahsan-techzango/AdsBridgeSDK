@@ -1,0 +1,10 @@
+jdk:
+  - openjdk17
+
+install:
+  - |
+    set -e
+    curl -fLsS https://services.gradle.org/distributions/gradle-9.4.1-bin.zip -o /tmp/gradle.zip
+    unzip -q /tmp/gradle.zip -d /tmp
+    /tmp/gradle-9.4.1/bin/gradle :ads-library:assembleRelease --no-daemon
+    /tmp/gradle-9.4.1/bin/gradle :ads-library:publishReleasePublicationToMavenLocal --no-daemon
