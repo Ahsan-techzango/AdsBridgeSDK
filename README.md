@@ -403,7 +403,7 @@ Clear per-placement cache with `AdsLibrary.clearPlacement("home")` or all cached
 | Gradle sync fails | JDK 17, AGP/Gradle compatibility, Android SDK 36 installed, no redundant Kotlin Android plugin with AGP 9 |
 | Ads never load | Check test ad IDs, consent, network, premium status, AdMob initialization and Logcat |
 
-## 14. Migration from app-specific ads code
+## 13. Migration from app-specific ads code
 
 Replace original `Ads.kt`, `NativeAdManager.kt`, `NativeListAdManager.kt`, `AdBanner.kt` and `AppOpenAdManager.kt` call sites with `AdsLibrary` calls. Supply ad unit IDs from the host, initialize in `Application`, update premium via `setPremiumUser`, move subscription/Firebase/Remote Config/dialog ownership into the host app, use `NativeState` for preload observation, and replace app-level ad view cleanup with `removeAd`.
 
